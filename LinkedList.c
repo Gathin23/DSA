@@ -6,9 +6,9 @@ void display();
 void insert_begin();
 void insert_end();
 void insert_pos();
-// void delete_begin();
-// void delete_end();
-// void delete_pos();
+void delete_begin();
+void delete_end();
+void delete_pos();
  
 
 struct node {
@@ -49,15 +49,15 @@ int main()     {
                         case 5:
                                         insert_pos();
                                         break;
-                        // case 6:
-                        //                 delete_begin();
-                        //                 break;
-                        // case 7:
-                        //                 delete_end();
-                        //                 break;
-                        // case 8:
-                        //                 delete_pos();
-                        //                 break;
+                        case 6:
+                                        delete_begin();
+                                        break;
+                        case 7:
+                                        delete_end();
+                                        break;
+                        case 8:
+                                        delete_pos();
+                                        break;
                         
                         case 9:
                                         exit(0);
@@ -184,3 +184,79 @@ void insert_pos(){
         }
 }
 
+void delete_begin() {
+        struct node *ptr;
+        if (start == NULL) {
+                printf("List is empty");
+                return;
+        }
+        else{
+                ptr = start;
+                start = start->next;
+                printf("The deleted element is: %d\n",ptr->data);
+                free(ptr);
+        }
+}
+
+void delete_end() {
+        struct node *temp,*ptr;
+        if(start == NULL){
+                printf("The list is empty");
+                return;
+        }
+        else if(start->next == NULL){
+                ptr=start;
+                start=NULL;
+                printf("The deleted element is: %d\n",ptr->data);
+                free(ptr);
+        }
+        else {
+                ptr = start;
+                while(ptr->next!=NULL)
+                {
+                        temp=ptr;
+                        ptr=ptr->next;
+                }
+                temp->next=NULL;
+                printf("The deleted element is: %d\n",ptr->data);
+                free(ptr);
+        }
+}
+
+void delete_pos() {
+        int i,pos;
+        struct node *temp,*ptr;
+        if(start==NULL)
+        {
+                printf("The List is Empty\n");
+                return;
+        }
+        else
+        {
+                printf("Enter the position of the node to be deleted: ");
+                scanf("%d",&pos);
+                if(pos==0)
+                {
+                        ptr=start;
+                        start=start->next ;
+                        printf("The deleted element is:%d\n",ptr->data);
+                        free(ptr);
+                }
+                else
+                {
+                        ptr=start;
+                        for(i=0;i<pos;i++) { 
+                                temp=ptr; 
+                                ptr=ptr->next ;
+                                if(ptr==NULL)
+                                {
+                                        printf("Position not Found\n");
+                                        return;
+                                }
+                        }
+                        temp->next = ptr->next ;
+                        printf("nThe deleted element is:%dt",ptr->data);
+                        free(ptr);
+                }
+        }
+}
