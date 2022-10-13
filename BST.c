@@ -59,6 +59,44 @@ NODE* display(NODE* node, int level){
     }
 }
 
+NODE* findMin(NODE* node){
+  if(node == NULL){
+    return NULL;
+  }
+  if(node ->left){
+    return findMin(node->left);
+  }else{
+    return node;
+  }
+}
+
+NODE* del(NODE* node,int data){
+  NODE* temp;
+  if(node == NULL){
+    printf("\nElements not found");
+  }else if(data < node->data){
+    node->left = del(node->left,data);
+  }else if (data > node->data){
+    node->right = del(node->right,data);
+  }else{
+  
+    if(node->right && node->left){
+      
+      temp = findMin(node->right);
+      node->data = temp->data;
+      node->right = del(node->right,temp->data);
+    }else{
+      temp = node;
+      if(node->left == NULL){
+        node = node->right;
+      }else if(node->right == NULL){
+        node = node->left;
+      }
+      free(temp);
+    }
+  }
+  return node;
+  }
 
 
 void main()
@@ -100,11 +138,11 @@ void main()
       root = search(root, data);
       break;
 
-    // case 3:
-    //   printf("\nEnter the element to delete: ");
-    //   scanf("%d", & data);
-    //   root = del(root, data);
-    //   break;
+    case 3:
+      printf("\nEnter the element to delete: ");
+      scanf("%d", & data);
+      root = del(root, data);
+      break;
 
     case 4: {
       display(root, 1);
