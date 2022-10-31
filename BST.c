@@ -2,6 +2,7 @@
 #include<stdlib.h>
 
 struct BST {
+  
     int data;
     struct BST* left;
     struct BST* right;
