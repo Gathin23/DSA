@@ -22,7 +22,6 @@ struct node *insertNode(struct node *root,int val){
     if(root == NULL){
         return getNode(val);
     }
-
     if (val < root->val){
         root->left = insertNode(root->left,val);
     }
